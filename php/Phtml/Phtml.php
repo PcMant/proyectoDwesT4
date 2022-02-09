@@ -7,34 +7,44 @@ class Phtml{
     protected $paginaDown;
 
 
-    function __construct($nuevoTitulo="PcMant"){
+    public function __construct($nuevoTitulo="PcMant"){
         $this->titulo = $nuevoTitulo.'-NombreEscuela';
         $this->pagina = '';
     }
 
-    function __set($name,$value){
+    public function __set($name,$value){
         $this->$name = $value;
     }
 
-    function __get($name){
+    public function __get($name){
         return $this->$name;
     }
 
-    function printPagina(){
+    public final function printPagina(){
         // Inicio de sesión
         session_start();
 
         // Comprobacción del login
         require_once('php/con-mysql/login_check.php');
 
-        // Imprimiendo pagina
+        // Imprimiendo pagina parte superior
         echo $this->$paginaUp;
-        // Notificación errores
+        require_once 'php/Phtml/Alertas.php';
+
         // Login, resultados o vacio
+        if(preg_match('/^index.php*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/proyectoPhp*/',basename($_SERVER['REQUEST_URI']))){
+            // Login
+            require_once 'php/con-mysql/select-alumnos.php';
+        }elseif(preg_match('/^insert_alumnos.php*/i',basename($_SERVER['REQUEST_URI']))){
+            // Listado de datos
+            require_once 'php/formulario_login.php';
+        }
+
+        // Imprimiendo parte inferior
         echo $this->$paginaDown;
     }
 
-    function addContenido($contenido,$pos=0){
+    public function addContenido($contenido,$pos=0){
         if($pos==1){
             $this->paginaUp.= $contenido."\n";
         }else{
@@ -42,7 +52,7 @@ class Phtml{
         }
     }
 
-    function cabecera(){
+    public function cabecera(){
         $usuario = empty($_SESSION['usuario']) && empty($_SESSION['password']) ? 'Invitado' : $_SESSION['usuario'];
         $inicio = preg_match('/^index.php*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/proyectoPhp*/',basename($_SERVER['REQUEST_URI'])) ? 'active' : '';
         $addAlumno = preg_match('/^insert_alumnos.php*/i',basename($_SERVER['REQUEST_URI'])) ? 'active' : '';
@@ -122,7 +132,7 @@ class Phtml{
         $this->addContenido($temp,0);
     }
 
-    function footer(){
+    public function footer(){
         $temp = "
             </main>
             <!-- Fin de contenido -->
@@ -141,22 +151,22 @@ class Phtml{
         $this->addContenido($temp,1);
     }
 
-    function titulo($titulo,$h=0,$pos=0){
+    public function titulo($titulo,$h=0,$pos=0){
         $temp = "<h{$h}>{$titulo}</h{$h}>";
         $this->addContenido($temp,$pos);
     }
 
-    function etiquetaGenerica($etiqueta,$contenido,$pos){
+    public function etiquetaGenerica($etiqueta,$contenido,$pos){
         $temp = "<{$etiqueta}>{$contenido}</{$etiqueta}>";
         $this->addContenido($temp,$pos);
     }
 
-    function openForm(){}
+    public function openForm(){}
 
-    function closeForm($pos=0){
+    public function closeForm($pos=0){
         $temp = '</form>';
         $this->addContenido($temp,$pos);
     }
 
-    function input(){}
+    public function input(){}
 }
