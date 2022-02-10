@@ -208,8 +208,41 @@ class Phtml{
         $this->addContenido($temp,$pos);
     }
 
-    public function etiquetaGenerica($etiqueta,$contenido='',$pos=0){
-        $temp = "<{$etiqueta}>{$contenido}</{$etiqueta}>";
+    public function texto($texto,$pos=0){
+        $this->addContenido($texto,$pos);
+    }
+
+    public function etiquetaGenerica($etiqueta,$contenido,$atributos='',$pos=0){
+        $temp = "<{$etiqueta} {$atributos}>{$contenido}</{$etiqueta}>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function openGenerica($etiqueta,$atributos='',$pos=0){
+        $temp = "<{$etiqueta} {$atributos}>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function closeGenerica($etiqueta){
+        $temp = "</{$etiqueta}>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function openP($atributos,$pos=0){
+        $temp = "<p {$atributos}>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function closeP($pos=0){
+        $this->addContenido('</p>',$pos);
+    }
+
+    public function openDiv($atributos,$pos=0){
+        $temp = "<div {$atributos}>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function closeDiv($pos=0){
+        $temp = '</div>';
         $this->addContenido($temp,$pos);
     }
 
@@ -299,12 +332,49 @@ class Phtml{
         $this->addContenido($temp,$pos);
     }
 
-    public function input(){}
+    public function label($for,$contenido,$atributos='',$pos=0){
+        $temp = "<label for='{$for}'  {$atributos} >{$contenido}</label>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function input($type,$name,$id='',$atributos='',$pos=0){
+        $temp = "<input type='{$type}' name='{$name}' id='{$id}'  {$atributos} />";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function textarea($name,$id,$contenido='',$atributos='',$pos=0){
+        $temp = "<textarea name='{$name}' id='{$id}'  {$atributos}>{$contenido}</textarea>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function checkbox($name,$value,$id='',$atributos='',$pos=0){
+        $temp = "<checkbox value='{$value}' name='{$name}' id='{$id}'  {$atributos} />";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function OpenSelect($name,$id,$atributos='',$pos=0){
+        $temp = "<select name='{$name}' id='{$id}'  {$atributos} />";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function option($value,$contenido='',$atributos='',$pos=0){
+        $temp = "<option value='{$value}' {$atributos}>{$contenido}</option>";
+        $this->addContenido($temp,$pos);
+    }
+
+    public function closeSelect($pos=0){
+        $temp = '</select>';
+        $this->addContenido($temp,$pos);
+    }
+
+    public function button($type,$name='',$id='',$contenido,$atributos='',$pos=0){
+        $temp = "<button type='{$type}' name='{$name}' id='{$id}'  {$atributos} >{$contenido}</button>";
+        $this->addContenido($temp,$pos);
+    }
 
     public function closeForm($pos=0){
         $temp = '</form>';
         $this->addContenido($temp,$pos);
     }
 
-    
 }

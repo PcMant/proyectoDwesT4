@@ -1,26 +1,35 @@
-<?php require_once 'php/header.php'; //header?>
+<?php
+include 'php/Phtml/Phtml.php';
+$pag = new Phtml('Eliminar alumnos');
+$pag->openDiv("class='col-12 row justify-content-center'");
+$pag->titulo('Eliminar alumnos');
+$pag->openForm("class='col-12 col-sm-12  col-lg-12 col-xl-3 row' action='php/con-mysql/delete-alumnos.php'");
 
-<div class="col-12 row justify-content-center">
-    <h1>Eliminar alumnos</h1>
-    <form class="col-12 col-sm-12  col-lg-12 col-xl-3" action="php/con-mysql/delete-alumnos.php" method="get">
-        <div class="mb-3">
-            <label for="id" class="form-label">Id</label>
-            <input type="number" class="form-control" id="id" name="id" aria-describedby="id">
-        </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="name" class="form-control" id="nombre" name="nombre" aria-describedby="nombre">
-        </div>
-        <div class="mb-3">
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="name" class="form-control" id="apellidos" name="apellidos" aria-describedby="apellidos">
-        </div>
-        <div class="mb-3">
-            <label for="dni" class="form-label">DNI sin la letra</label>
-            <input type="number" class="form-control" id="dni" name="dni" aria-describedby="dni">
-        </div>
-        <div class="text-center"><button type="submit" class="btn btn-primary w-100">Eliminar</button></div>
-    </form>
-</div>
+$pag->openDiv("class='mb-3'");
+$pag->label('id','Id',"class='form-label'");
+$pag->input('number','id','id',"class='form-control' aria-describedby='id'");
+$pag->closeDiv();
 
-<?php require_once 'php/footer.php'; //footer?>
+$pag->openDiv("class='mb-3'");
+$pag->label('nombre','Nombre',"class='form-label'");
+$pag->input('name','nombre','nombre',"class='form-control' aria-describedby='nombre'");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('apellidos','Apellidos',"class='form-label'");
+$pag->input('name','apellidos','apellidos',"class='form-control' aria-describedby='apellidos'");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('dni','DNI sin la letra',"class='form-label'");
+$pag->input('number','dni','dni',"class='form-control' aria-describedby='dmi'");
+$pag->closeDiv();
+
+$pag->openDiv('class="text-center"');
+$pag->button('submit','','','Eliminar','class="btn btn-primary w-100"');
+$pag->closeDiv();
+
+$pag->closeForm();
+$pag->closeDiv();
+$pag->printPagina();
+?>

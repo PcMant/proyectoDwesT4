@@ -1,47 +1,64 @@
-<?php require_once 'php/header.php'; //header?>
+<?php
+include 'php/Phtml/Phtml.php';
+$pag = new Phtml('Añadir alumno');
+$pag->openDiv("class='col-12 row justify-content-center'");
+$pag->titulo('Añadir alumno');
+$pag->openForm("class='col-12 col-sm-12  col-lg-12 col-xl-3 row' action='php/con-mysql/insert-alumnos.php'");
 
-<div class="col-12 row justify-content-center">
-            <h1>Añadir alumno</h1>
-            <form class="col-12 col-sm-12  col-lg-12 col-xl-3 row" action="php/con-mysql/insert-alumnos.php" >
-                <div class="mb-3">
-                    <label for="curso" class="form-label">Curso</label>
-                    <input type="text" class="form-control" id="curso" name="curso" aria-describedby="nombre">
-                </div>
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre*</label>
-                    <input type="name" class="form-control" id="nombre" name="nombre" aria-describedby="nombre">
-                </div>
-                <div class="mb-3">
-                    <label for="apellidos" class="form-label">Apellidos*</label>
-                    <input type="name" class="form-control" id="apellidos" name="apellidos" aria-describedby="apellidos">
-                </div>
-                <div class="mb-3">
-                    <label for="dni" class="form-label">DNI sin la letra</label>
-                    <input type="number" class="form-control" id="dni" name="dni" aria-describedby="dni">
-                </div>
-                <div class="mb-3">
-                    <label for="fecha_nac" class="form-label">Fecha de nacimiento*</label>
-                    <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" aria-describedby="fecha_nac">
-                </div>
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección*</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" aria-describedby="direccion">
-                </div>
-                <div class="mb-3">
-                    <label for="localidad" class="form-label">Localidad*</label>
-                    <input type="text" class="form-control" id="localidad" name="localidad" aria-describedby="localidad">
-                </div>
-                <div class="mb-3">
-                    <label for="cp" class="form-label">Código postal*</label>
-                    <input type="number" class="form-control" id="cp" name="cp" aria-describedby="cp">
-                </div>
-                <div class="mb-3">
-                    <label for="telf" class="form-label">Teléfono*</label>
-                    <input type="number" class="form-control" id="telf" name="telf" aria-describedby="telf">
-                </div>
-                <p style="font-size: 13px; letter-spacing: -1px"><strong >Los datos marcados con * son obligatorios.</strong></p>
-                <div class="text-center"><button type="submit" class="btn btn-primary w-100">Añadir registro</button></div>
-            </form>
-        </div>
+$pag->openDiv("class='mb-3'");
+$pag->label('curso','Curso',"class='form-label'");
+$pag->input('text','curso','curso',"class='form-control' aria-describedby='curso'");
+$pag->closeDiv();
 
-<?php require_once 'php/footer.php'; //footer?>
+$pag->openDiv("class='mb-3'");
+$pag->label('nombre','Nombre*',"class='form-label'");
+$pag->input('name','nombre','nombre',"class='form-control' aria-describedby='nombre' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('apellidos','Apellidos*',"class='form-label'");
+$pag->input('name','apellidos','apellidos',"class='form-control' aria-describedby='apellidos' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('dni','DNI sin la letra',"class='form-label'");
+$pag->input('number','dni','dni',"class='form-control' aria-describedby='dmi'");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('fecha_nac','Fecha de nacimiento*',"class='form-label'");
+$pag->input('date','fecha_nac','fecha_nac',"class='form-control' aria-describedby='fecha de nacimiento' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('direccion','Dirección*',"class='form-label'");
+$pag->input('text','direccion','direccion',"class='form-control' aria-describedby='dirección' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('localidad','Localidad*',"class='form-label'");
+$pag->input('text','localidad','localidad',"class='form-control' aria-describedby='localidad' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('cp','Código postal*',"class='form-label'");
+$pag->input('number','cp','cp',"class='form-control' aria-describedby='cp' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('telf','Teléfono*',"class='form-label'");
+$pag->input('number','telf','telf',"class='form-control' aria-describedby='teléfono' required");
+$pag->closeDiv();
+
+$pag->openP('style="font-size: 13px; letter-spacing: -1px"');
+$pag->etiquetaGenerica('strong','Los datos marcados con * son obligatorios.');
+$pag->closeP();
+
+$pag->openDiv('class="text-center"');
+$pag->button('submit','','','Añadir registro','class="btn btn-primary w-100"');
+$pag->closeDiv();
+
+$pag->closeForm();
+$pag->closeDiv();
+$pag->printPagina();
+?>
