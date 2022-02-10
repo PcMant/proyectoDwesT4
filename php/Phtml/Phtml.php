@@ -23,6 +23,12 @@ class Phtml{
         return $this->$name;
     }
 
+    /** Método que solo imprime contenido y no la página entera */
+    public function printHtml(){
+        echo $this->paginaUp;
+        echo $this->paginaDown;
+    }
+
     /** Método para imprimir la pagina resultante */
     public final function printPagina(){
         // Comprobacción del login
