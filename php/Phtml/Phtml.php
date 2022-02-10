@@ -93,6 +93,7 @@ class Phtml{
         echo $this->footer();
     }
 
+    /* Método que va añadiendo el contenido para luego posteriormente generar html con los otros métodos*/
     public function addContenido($contenido,$pos=0){
         if($pos==1){
             $this->paginaDown.= $contenido."\n";
@@ -183,6 +184,7 @@ class Phtml{
         return $temp;
     }
 
+    /* Método que retorna el footer */
     public function footer(){
         $temp = "
             </main>
@@ -203,175 +205,209 @@ class Phtml{
         return $temp;
     }
 
+    /* Genera un titulo de cualquiera de los tamaños de html*/
     public function titulo($titulo,$h=1,$pos=0){
         $temp = "<h{$h}>{$titulo}</h{$h}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Añade contenido de cualquier tipo en texto plano*/
     public function texto($texto,$pos=0){
         $this->addContenido($texto,$pos);
     }
 
+    /* Añade cualquier etiqueta no contemplada por la clase*/
     public function etiquetaGenerica($etiqueta,$contenido,$atributos='',$pos=0){
         $temp = "<{$etiqueta} {$atributos}>{$contenido}</{$etiqueta}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre cualquier etiqueta  no contemplada por la clase */
     public function openGenerica($etiqueta,$atributos='',$pos=0){
         $temp = "<{$etiqueta} {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra cualquier etiqueta no contemplada por la clase*/
     public function closeGenerica($etiqueta){
         $temp = "</{$etiqueta}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre un párrafo*/
     public function openP($atributos,$pos=0){
         $temp = "<p {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra párrafo*/
     public function closeP($pos=0){
         $this->addContenido('</p>',$pos);
     }
 
+    /* Abre div*/
     public function openDiv($atributos,$pos=0){
         $temp = "<div {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra div*/
     public function closeDiv($pos=0){
         $temp = '</div>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea enlace*/
     public function enlace($url='',$contenido='',$atributos='',$pos=0){
         $temp = "<a href='{$url}' {$atributos}>{$contenido}</a>";
         $this->addContenido($temp,$pos);
     }
 
+    /*Crea un párrafo con texto plano o cualquier contenido*/
     public function parrafo($contenido='',$atributos='',$pos=0){
         $temp = "<p {$atributos}>{$contenido}</p>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre una tabla*/
     public function openTable($atributos='',$pos=0){
         $temp = "<table {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre una fila de tabla*/
     public function openTr($atributos='',$pos=0){
         $temp = "<tr {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre Encabezado de tabla*/
     public function openTh($atributos='',$pos=0){
         $temp = "<th {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre celda de tabla */
     public function openTd($atributos='',$pos=0){
         $temp = "<td {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra celda de tabla*/
     public function closeTd($pos=0){
         $temp = '</td>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra encabezado de tabla*/
     public function closeTh($pos=0){
         $temp = '</th>';
         $this->addContenido($temp,$pos);
     }
 
-
+    /* Cierra fila de tabla*/
     public function closeTr($pos=0){
         $temp = '</tr>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra tabla*/
     public function closeTable($pos=0){
         $temp = '</table>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre una lista No ordenada */
     public function openUl($atributos='',$pos=0){
         $temp = "<ul {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre una lista Ordenada */
     public function openOl($atributos='',$pos=0){
         $temp = "<ol {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre un elemento de lista*/
     public function openli($atributos='',$pos=0){
         $temp = "<li {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra un elemento de lista */
     public function closeLi($pos=0){
         $temp = '</li>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra lista No ordenada */
     public function closeUl($pos=0){
         $temp = '</ul>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra lista ordenada */
     public function closeOl($pos=0){
         $temp = '</ol>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre formulario */
     public function openForm($atributos='',$pos=0){
         $temp = "<form {$atributos}>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea un label */
     public function label($for,$contenido,$atributos='',$pos=0){
         $temp = "<label for='{$for}'  {$atributos} >{$contenido}</label>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea un input*/
     public function input($type,$name,$id='',$atributos='',$pos=0){
         $temp = "<input type='{$type}' name='{$name}' id='{$id}'  {$atributos} />";
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea un Ares de texto */
     public function textarea($name,$id,$contenido='',$atributos='',$pos=0){
         $temp = "<textarea name='{$name}' id='{$id}'  {$atributos}>{$contenido}</textarea>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea un checkbox */
     public function checkbox($name,$value,$id='',$atributos='',$pos=0){
         $temp = "<checkbox value='{$value}' name='{$name}' id='{$id}'  {$atributos} />";
         $this->addContenido($temp,$pos);
     }
 
+    /* Abre un select */
     public function OpenSelect($name,$id,$atributos='',$pos=0){
         $temp = "<select name='{$name}' id='{$id}'  {$atributos} />";
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea opciones de Select */
     public function option($value,$contenido='',$atributos='',$pos=0){
         $temp = "<option value='{$value}' {$atributos}>{$contenido}</option>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra select */
     public function closeSelect($pos=0){
         $temp = '</select>';
         $this->addContenido($temp,$pos);
     }
 
+    /* Crea boton */
     public function button($type,$name='',$id='',$contenido,$atributos='',$pos=0){
         $temp = "<button type='{$type}' name='{$name}' id='{$id}'  {$atributos} >{$contenido}</button>";
         $this->addContenido($temp,$pos);
     }
 
+    /* Cierra formulario */
     public function closeForm($pos=0){
         $temp = '</form>';
         $this->addContenido($temp,$pos);
