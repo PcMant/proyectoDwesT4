@@ -29,7 +29,7 @@ if(
     !preg_match('/^register.php*/i',basename($_SERVER['REQUEST_URI']))) &&
     !$_SESSION['bllogin']
     )
-        $alerta->error('
+        echo $alerta->error('
         Los usuarios invitados no pueden interacturar con la base de datos ni consultar datos, debe de iniciar sesión con un usuario registrado con suficientes privilegios.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         <p>
@@ -54,13 +54,13 @@ if((
     preg_match('/^delete_alumnos.php*/i',basename($_SERVER['REQUEST_URI']))
     ) && $_SESSION['bllogin'] && !preg_match('/^Editor$/i',$_SESSION['tipo'])
 ) 
-    $alerta->error('No dispones de suficientes privilegios para esta acción.');
+    echo $alerta->error('No dispones de suficientes privilegios para esta acción.');
 
 // Inicio de sesión
 if(isset($_GET['login']) && $_GET['login'] == 'true'){
-    $alerta->aviso('Has iniciado sesión correctamente.');
+    echo $alerta->aviso('Has iniciado sesión correctamente.');
 }else if(isset($_GET['login']) && $_GET['login'] == 'false'){
-    $alerta->error('Contraseña o cuenta introduccida incorrectamente, intentalo de nuevo.');
+    echo $alerta->error('Contraseña o cuenta introduccida incorrectamente, intentalo de nuevo.');
 }
 
 // Formulario standar

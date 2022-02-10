@@ -2,9 +2,9 @@
 
 // Parametros
 $id = !empty($_SESSION['id']) ? $_SESSION['id'] : '';
-$dni = $_SESSION['dni'];
-$apellidos = $_SESSION['apellidos'];
-$nombre = $_SESSION['nombre'];
+$dni = !empty($_SESSION['dni']) ? $_SESSION['dni'] : '';
+$apellidos = !empty($_SESSION['apellidos']) ? $_SESSION['apellidos'] : '';
+$nombre = !empty($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
 $criteriosSelect = '';
 
 if($_SESSION['bllogin']){
@@ -64,7 +64,8 @@ if($_SESSION['bllogin']){
         if($paginas < 1) $paginas = 1;
 
         // Forzando parámetro pagina 
-        if(empty($_GET['pagina']) || $_GET['pagina'] > $paginas || $_GET['pagina'] < 1) header("Location:".basename($_SERVER['SCRIPT_FILENAME'], '.php')."?pagina=1");
+        if(empty($_GET['pagina']) || $_GET['pagina'] > $paginas || $_GET['pagina'] < 1) echo "<script>location.replace('".basename($_SERVER['SCRIPT_FILENAME'],'.php').".php?pagina=1');</script>";
+         /*header("Location:".basename($_SERVER['SCRIPT_FILENAME'], '.php')."?pagina=1")*/;
 
         // Consulta paginada
         $iniciar = ($_GET['pagina']-1)*$alumnos_x_pagina;
@@ -137,21 +138,21 @@ if($_SESSION['bllogin']){
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '';?>">
-                <a class="page-link" href=".?pagina=<?=empty($_GET['pagina']) || $_GET['pagina']<=1 ? '1' : $_GET['pagina']-1?>">
+                <a class="page-link" href="?pagina=<?=empty($_GET['pagina']) || $_GET['pagina']<=1 ? '1' : $_GET['pagina']-1?>">
                     Anterior
                 </a>
             </li>
 
             <?php for($i=$_GET['pagina']-1;$i<$paginas && $i<$_GET['pagina']+3;$i++): ?>
                 <li class="page-item <?php if($_GET['pagina'] == $i+1) echo 'active';?> <?php echo $_GET['pagina'] > $paginas ? 'disabled' : ''?>">
-                    <a class="page-link" href=".?pagina=<?=$i+1?>">
+                    <a class="page-link" href="?pagina=<?=$i+1?>">
                         <?=$i+1?>
                     </a>
                 </li>
             <?php endfor ?>
             
             <li class="page-item">
-                <a class="page-link" href=".?pagina=<?=empty($_GET['pagina']) ? '1' : $_GET['pagina']+1;?>">
+                <a class="page-link" href="?pagina=<?=empty($_GET['pagina']) ? '1' : $_GET['pagina']+1;?>">
                     Siguiente
                 </a>
             </li>
