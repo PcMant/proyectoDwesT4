@@ -84,12 +84,12 @@ class Phtml{
             require_once 'php/con-mysql/select-alumnos.php';
 
         }elseif(!$_SESSION['bllogin'] && (preg_match('/^index.php*/i',basename($_SERVER['REQUEST_URI'])) || 
-        preg_match('/proyectoDwesT4*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/^resultados.php*/i',basename($_SERVER['REQUEST_URI']))
-        || preg_match('/^login.php*/i',basename($_SERVER['REQUEST_URI'])))){
-            require_once 'php/formulario_login.php';
+        preg_match('/proyectoDwesT4*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/^resultados.php*/i',basename($_SERVER['REQUEST_URI'])))){
+
+            echo $this->login();
         }
 
-        if(preg_match('/^login.php*/i',basename($_SERVER['REQUEST_URI']))) require_once 'php/formulario_login.php';
+        if(preg_match('/^login.php*/i',basename($_SERVER['REQUEST_URI']))) echo $this->login();
 
         // Imprimiendo parte inferior
         echo $this->paginaDown;
@@ -103,6 +103,30 @@ class Phtml{
         }else{
             $this->paginaUp.= $contenido."\n";
         }
+    }
+
+    /* Metodo que devuelve un formulario de inicio de sesión */
+    public function login(){
+        return '<div class="col-12 row justify-content-center">
+                    <div class="col-12 col-sm-12  col-lg-12 col-xl-3">
+                        <!--h1>Inicio de sesión</h1-->
+                        <form method="get" action="php/con-mysql/login.php">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                                <input type="name" class="form-control" id="usuario" name="usuario" aria-describedby="usuario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="mantener-sesion" name="mantener-sesion">
+                                <label class="form-check-label" for="mantener-sesion">Mantener sesión</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                        </form>
+                    </div>
+                </div>';
     }
 
     /* Metodo que retorna cabecera */
