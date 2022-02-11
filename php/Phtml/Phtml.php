@@ -31,6 +31,7 @@ class Phtml{
 
     /** Método para imprimir la pagina resultante */
     public final function printPagina(){
+
         // Comprobacción del login
         require_once('php/con-mysql/login_check.php');
 
@@ -58,10 +59,10 @@ class Phtml{
                 }elseif(preg_match('/^resultados.php*/i',basename($_SERVER['REQUEST_URI']))){
 
                     // Recogida de datos
-                    $_SESSION['id'] = !empty($_GET['id']) ? $_GET['id'] : '';
-                    $_SESSION['dni'] = !empty($_GET['dni']) ? $_GET['dni'] : '';
-                    $_SESSION['apellidos'] = !empty($_GET['apellidos']) ? $_GET['apellidos'] : '';
-                    $_SESSION['nombre'] = !empty($_GET['nombre']) ? $_GET['nombre'] : '';
+                    if(empty($_SESSION['id'])) $_SESSION['id'] = !empty($_GET['id']) ? $_GET['id'] : '';
+                    if(empty($_SESSION['dni'])) $_SESSION['dni'] = !empty($_GET['dni']) ? $_GET['dni'] : '';
+                    if(empty($_SESSION['apellidos'])) $_SESSION['apellidos'] = !empty($_GET['apellidos']) ? $_GET['apellidos'] : '';
+                    if(empty($_SESSION['nombre'])) $_SESSION['nombre'] = !empty($_GET['nombre']) ? $_GET['nombre'] : '';
 
                     echo "
                     <h1>Resultados de la consulta a la base de datos</h1>

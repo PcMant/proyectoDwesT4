@@ -1,4 +1,5 @@
 <?php
+require_once 'php/Phtml/Resultados.Php';
 
 // Parametros
 $id = !empty($_SESSION['id']) ? $_SESSION['id'] : '';
@@ -87,77 +88,60 @@ if($_SESSION['bllogin']){
         die();
     }
 }
+
+
+if($_SESSION['bllogin']){
+    $resultados = new Resultados();
+    $resultados->openTable("class='text-center'");
+    $resultados->openTr();
+    $resultados->openTh();$resultados->texto('Id');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Curso');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Apellidos');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Nombre');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('DNI');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Fecha de nacimiento');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Dirección');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Localidad');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('CP');$resultados->closeTh();
+    $resultados->openTh();$resultados->texto('Teléfono');$resultados->closeTh();
+    $resultados->closeTr();
+
+    // En caso de 0 resultados muestro una fila vacia
+    if(count($resultado) < 1){
+        $resultados->openTr();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->openTd();$resultados->closeTd();
+        $resultados->closeTr();
+    }
+
+    // Listando los datos
+    foreach ($resultado_alumnos as $dato){
+        $resultados->openTr();
+        $resultados->openTd();$resultados->texto($dato['id']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['curso']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['apellidos']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['nombre']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['dni']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['fecha_nac']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['direccion']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['localidad']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['cp']);$resultados->closeTd();
+        $resultados->openTd();$resultados->texto($dato['telf']);$resultados->closeTd();
+        $resultados->closeTr();
+    }
+
+    $resultados->closeTable();
+    $resultados->printHtml();
+    $resultados->paginacion($paginas);
+}
+
+
 ?>
-
-<?php if($_SESSION['bllogin']): ?>
-    <table class="table table table-striped table-bordered">
-        <tr class="text-center">
-            <th>Id</th>
-            <th>Curso</th>
-            <th>Apellidos</th>
-            <th>Nombre</th>
-            <th>DNI</th>
-            <th>Fecha de nacimiento</th>
-            <th>Dirección</th>
-            <th>Localidad</th>
-            <th>CP</th>
-            <th>Teléfono</th>
-        </tr>
-
-
-        <?php if(count($resultado) < 1): //En caso de 0 resultados muestro una fila vacia?>
-            <tr>
-                <td>ㅤ</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        <?php endif; ?>
-
-        <?php foreach ($resultado_alumnos as $dato): //Listando datos?>
-            <tr>
-                <td><?=$dato['id']?></td>
-                <td><?=$dato['curso']?></td>
-                <td><?=$dato['apellidos']?></td>
-                <td><?=$dato['nombre']?></td>
-                <td><?=$dato['dni']?></td>
-                <td><?=$dato['fecha_nac']?></td>
-                <td><?=$dato['direccion']?></td>
-                <td><?=$dato['localidad']?></td>
-                <td><?=$dato['cp']?></td>
-                <td><?=$dato['telf']?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '';?>">
-                <a class="page-link" href="?pagina=<?=empty($_GET['pagina']) || $_GET['pagina']<=1 ? '1' : $_GET['pagina']-1?>">
-                    Anterior
-                </a>
-            </li>
-
-            <?php for($i=$_GET['pagina']-1;$i<$paginas && $i<$_GET['pagina']+3;$i++): ?>
-                <li class="page-item <?php if($_GET['pagina'] == $i+1) echo 'active';?> <?php echo $_GET['pagina'] > $paginas ? 'disabled' : ''?>">
-                    <a class="page-link" href="?pagina=<?=$i+1?>">
-                        <?=$i+1?>
-                    </a>
-                </li>
-            <?php endfor ?>
-            
-            <li class="page-item">
-                <a class="page-link" href="?pagina=<?=empty($_GET['pagina']) ? '1' : $_GET['pagina']+1;?>">
-                    Siguiente
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    </div>
-<?php endif; ?>
