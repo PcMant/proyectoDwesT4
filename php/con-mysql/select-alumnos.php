@@ -139,8 +139,8 @@ if($_SESSION['bllogin']){
     }
 
     $resultados->closeTable();
+    $resultados->paginacion($paginas,4);
     $resultados->printHtml();
-    $resultados->paginacion($paginas);
 }
 
 
