@@ -59,7 +59,7 @@ if($_SESSION['bllogin']){
 
         //Contar alumnos de nuestra base de datos
         $total_alumnos_db = $sentencia->rowCount();
-        $paginas = $total_alumnos_db/10;
+        $paginas = $total_alumnos_db/$alumnos_x_pagina;
         $paginas = ceil($paginas);
         if($paginas < 1) $paginas = 1;
 

@@ -1,11 +1,10 @@
-<?php require_once 'php/header.php'; //header?>
+<?php
+include 'php/Phtml/Phtml.php';
 
-<div class="col-12 row justify-content-center">
-    <div class="col-12 col-sm-12  col-lg-12 col-xl-3">
-        <h1 class="text-center">Inicio de sesión</h1>
-    </div>
-</div>
+$pag = new Phtml('Inicio de sesión');
+$pag->cabecera();
+$pag->titulo('Inicio de sesión',1,'class="text-center"');
+$pag->footer();
+$pag->printPagina();
 
-<?php require_once 'php/formulario_login.php'; ?>
-
-<?php require_once 'php/footer.php'; //footer?>
+?>

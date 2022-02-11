@@ -1,32 +1,41 @@
-<?php require_once 'php/header.php'; //header?>
+<?php
+include 'php/Phtml/Phtml.php';
+$pag = new Phtml('Registro');
+$pag->openDiv("class='col-12 row justify-content-center'");
+$pag->titulo('Registro',1,'class="text-center"');
+$pag->openForm("class='col-12 col-sm-12  col-lg-12 col-xl-3 row' action='php/con-mysql/registro.php'");
 
-<div class="row cl-12 justify-content-center">
-    <div class="col-12 col-sm-12  col-lg-12 col-xl-3">
-        <h1 class="text-center">Registro</h1>
-        <form method="get" action="php/con-mysql/registro.php" >
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Usuario*</label>
-                <input type="name" class="form-control" id="usuario" name="usuario" aria-describedby="usuario">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña*</label>
-                <input type="password" class="form-control" id="password" name="password" aria-describedby="password">
-            </div>
-            <div class="mb-3">
-                <label for="password2" class="form-label">Repita la contraseña*</label>
-                <input type="password" class="form-control" id="password2" name="password2" aria-describedby="password2">
-            </div>
-            <div class="mb-3">
-                <label for="tipo" class="form-label">Tipor de cuenta*</label>
-                <select class="form-select" id="tipo" name="tipo" aria-label="tipo">
-                    <option value="visor">Visor</option>
-                    <option value="editor">Editor</option>
-                </select>
-            </div>
-            <p style="font-size: 13px; letter-spacing: -1px"><strong >Los datos marcados con * son obligatorios.</strong></p>
-            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-        </form>
-    </div>
-</div>
+$pag->openDiv("class='mb-3'");
+$pag->label('usuario','Usuario*',"class='form-label'");
+$pag->input('name','usuario','usuario',"class='form-control' aria-describedby='usuario' required");
+$pag->closeDiv();
 
-<?php require_once 'php/footer.php'; //footer?>
+$pag->openDiv("class='mb-3'");
+$pag->label('password','Contraseña*',"class='form-label'");
+$pag->input('password','password','password',"class='form-control' aria-describedby='contraseña' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('password2','Repita la contraseña*',"class='form-label'");
+$pag->input('password','password2','password2',"class='form-control' aria-describedby='repita contraseña' required");
+$pag->closeDiv();
+
+$pag->openDiv("class='mb-3'");
+$pag->label('tipo','Tipo*',"class='form-label'");
+$pag->openSelect('tipo','tipo','class="form-select"');
+$pag->option('visor','Visor');
+$pag->option('editor','Editor');
+$pag->closeSelect();
+$pag->closeDiv();
+
+$pag->openP('style="font-size: 13px; letter-spacing: -1px"');
+$pag->etiquetaGenerica('strong','Los datos marcados con * son obligatorios.');
+$pag->closeP();
+
+$pag->openDiv('class="text-center"');
+$pag->button('submit','','','Registrarse','class="btn btn-primary w-100"');
+$pag->closeDiv();
+
+$pag->closeForm();
+$pag->closeDiv();
+$pag->printPagina();

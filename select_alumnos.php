@@ -1,9 +1,15 @@
 <?php
+//Reinicio de los parámetros
+$_SESSION['id'] = '';
+$_SESSION['dni'] = '';
+$_SESSION['apellidos'] = '';
+$_SESSION['nombre'] = '';
+
 include 'php/Phtml/Phtml.php';
 $pag = new Phtml('Buscar alumnos');
 $pag->openDiv("class='col-12 row justify-content-center'");
 $pag->titulo('Buscar alumnos');
-$pag->openForm("class='col-12 col-sm-12  col-lg-12 col-xl-3 row' action='resultados.php'");
+$pag->openForm("class='col-12 col-sm-12  col-lg-12 col-xl-3 row' action='resultados.php?pagina=1'");
 
 $pag->openDiv("class='mb-3'");
 $pag->label('id','Id',"class='form-label'");
@@ -24,6 +30,8 @@ $pag->openDiv("class='mb-3'");
 $pag->label('dni','DNI sin la letra',"class='form-label'");
 $pag->input('number','dni','dni',"class='form-control' aria-describedby='dmi'");
 $pag->closeDiv();
+
+$pag->input('hidden','pagina','pagina',"value='1'");
 
 $pag->openDiv('class="text-center"');
 $pag->button('submit','','','Buscar','class="btn btn-primary w-100"');

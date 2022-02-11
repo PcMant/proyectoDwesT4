@@ -84,9 +84,12 @@ class Phtml{
             require_once 'php/con-mysql/select-alumnos.php';
 
         }elseif(!$_SESSION['bllogin'] && (preg_match('/^index.php*/i',basename($_SERVER['REQUEST_URI'])) || 
-        preg_match('/proyectoDwesT4*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/^resultados.php*/i',basename($_SERVER['REQUEST_URI'])))){
+        preg_match('/proyectoDwesT4*/i',basename($_SERVER['REQUEST_URI'])) || preg_match('/^resultados.php*/i',basename($_SERVER['REQUEST_URI']))
+        || preg_match('/^login.php*/i',basename($_SERVER['REQUEST_URI'])))){
             require_once 'php/formulario_login.php';
         }
+
+        if(preg_match('/^login.php*/i',basename($_SERVER['REQUEST_URI']))) require_once 'php/formulario_login.php';
 
         // Imprimiendo parte inferior
         echo $this->paginaDown;
@@ -206,8 +209,8 @@ class Phtml{
     }
 
     /* Genera un titulo de cualquiera de los tamaños de html*/
-    public function titulo($titulo,$h=1,$pos=0){
-        $temp = "<h{$h}>{$titulo}</h{$h}>";
+    public function titulo($titulo,$h=1,$atributos='',$pos=0){
+        $temp = "<h{$h} {$atributos}>{$titulo}</h{$h}>";
         $this->addContenido($temp,$pos);
     }
 
